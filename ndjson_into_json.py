@@ -14,9 +14,15 @@ def ndjson_to_json(ndjson_file_path, output_directory):
             except json.JSONDecodeError as e:
                 print(f"Fehler beim Parsen der Zeile {line_number}: {e}")
                 continue
-            
+
+            # Extrahiere den Wert des Feldes "external_id"
+            external_id = json_data.get("external_id")
+            if not external_id:
+                print(f"Zeile {line_number} enthält kein 'external_id' Feld.")
+                continue
+
             # Erstelle den Pfad zur Ausgabedatei
-            json_file_path = os.path.join(output_directory, f"json_{line_number}.json")
+            json_file_path = os.path.join(output_directory, f"{external_id}.json")
             
             # Schreibe das JSON-Objekt in eine Datei
             with open(json_file_path, 'w', encoding='utf-8') as json_file:
