@@ -33,7 +33,6 @@ def create_yolo_labels(json_file):
 
     # Iteriere über die Frames und erstelle für jeden Frame eine Textdatei
     for frame_num, frame_data in data["projects"]["clor41l0i03gi07znfo8051e3"]["labels"][0]["annotations"]["frames"].items():
-        #print(frame_num)
 
         # Definiere den vollständigen Pfad zur neuen Textdatei
         output_file = os.path.join(output_folder, f'frame_{frame_num}.txt')
@@ -43,11 +42,7 @@ def create_yolo_labels(json_file):
             # Initialisiere den Objektzähler
             obj_counter = 0
             for obj_id, obj_data in frame_data["objects"].items():
-              #print(obj_id)
-              #class_id = obj_data['feature_id']
-              #print(class_id)
               bbox = obj_data['bounding_box']
-              #print(bbox)
 
               # Konvertiere die Bounding-Box-Koordinaten ins YOLO-Format
               x_center, y_center, bbox_width, bbox_height = convert_coordinates(width, height, bbox)
