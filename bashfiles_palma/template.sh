@@ -12,4 +12,8 @@
  
 # LOAD MODULES HERE IF REQUIRED
 # module load ...
+
 # START THE APPLICATION
+
+# don't use more than 4 cores per GPU!
+# don't use more than 30 GB per GPU reserved. Adjust the reserved time according to your needs.
