@@ -36,9 +36,21 @@ def create_yolo_labels(json_file):
 
     # Iteriere über die Frames und erstelle für jeden Frame eine Textdatei
     for frame_num, frame_data in data["projects"]["clor41l0i03gi07znfo8051e3"]["labels"][0]["annotations"]["frames"].items():
-
+        # Bestimme die Präfixlänge basierend auf der Anzahl der Ziffern der Framenummer
+        frame_num_str = str(frame_num)
+        if len(frame_num_str) == 1:
+            prefix = "video_0000"
+        elif len(frame_num_str) == 2:
+            prefix = "video_000"
+        elif len(frame_num_str) == 3:
+            prefix = "video_00"
+        elif len(frame_num_str) == 4:
+            prefix = "video_0"
+        else:
+            prefix = "video_"
+        
         # Definiere den vollständigen Pfad zur neuen Textdatei
-        output_file = os.path.join(output_folder, f'{base_filename_cleaned}_{frame_num}.txt')
+        output_file = os.path.join(output_folder, f'{prefix}{frame_num_str}.txt')
 
         # Öffne eine neue Textdatei für jeden Frame
         with open(output_file, 'w') as file:
@@ -57,5 +69,4 @@ def create_yolo_labels(json_file):
 # Schleife über alle JSON-Dateien im Ordner
 for json_file in os.listdir(json_folder):
     if json_file.endswith(".json"):
-        # print(json_file)
         create_yolo_labels(json_file)
