@@ -3,8 +3,8 @@ import os
 import re
 
 # Pfad zum Ordner mit den JSON-Dateien
-json_folder = "C:/Users/Andreas/Desktop/Geoinformatik/SEMESTER_6/01_Studienprojekt/annotations/json_test"
-
+#json_folder = "C:/Users/Andreas/Desktop/Geoinformatik/SEMESTER_6/01_Studienprojekt/annotations/json_test"
+json_folder = r"D:\ML_INSec\data_test\annotations\output_tojson\test_export_result_38k_kb"
 # Funktion zur Konvertierung der Koordinaten in das YOLO-Format
 def convert_coordinates(width, height, bbox):
     x_center = bbox['left'] + bbox['width'] / 2
@@ -16,7 +16,7 @@ def convert_coordinates(width, height, bbox):
     return x_center, y_center, bbox_width, bbox_height
 
 # Funktion zur Erstellung des YOLO-Labels für eine JSON-Datei
-def create_yolo_labels(json_file):
+def create_yolo_labels(json_file,projects_id):
     with open(os.path.join(json_folder, json_file), 'r') as file:
         data = json.load(file)
 
@@ -25,17 +25,17 @@ def create_yolo_labels(json_file):
     width = data['media_attributes']['width']
     # Extrahiere den Basename der JSON-Datei (ohne Pfad und Erweiterung)
     base_filename = os.path.splitext(json_file)[0]
-    print(base_filename)
+    print("base_filename:\n", base_filename )
     # Entferne das Suffix '_combined_###_####.mp4' aus dem Basename
     base_filename_cleaned = re.sub(r'_combined_\d+_\d+\.mp4', '', base_filename)
-    print(base_filename_cleaned)
+    print(base_filename_cleaned , "\n")
 
     # Erstelle einen Ordner für die Frames dieser JSON-Datei
     output_folder = os.path.join(json_folder, base_filename)
     os.makedirs(output_folder, exist_ok=True)
 
     # Iteriere über die Frames und erstelle für jeden Frame eine Textdatei
-    for frame_num, frame_data in data["projects"]["clor41l0i03gi07znfo8051e3"]["labels"][0]["annotations"]["frames"].items():
+    for frame_num, frame_data in data["projects"][projects_id]["labels"][0]["annotations"]["frames"].items():
         # Bestimme die Präfixlänge basierend auf der Anzahl der Ziffern der Framenummer
         frame_num_str = str(frame_num)
         if len(frame_num_str) == 1:
@@ -69,4 +69,12 @@ def create_yolo_labels(json_file):
 # Schleife über alle JSON-Dateien im Ordner
 for json_file in os.listdir(json_folder):
     if json_file.endswith(".json"):
-        create_yolo_labels(json_file)
+        print("------------- \n Processing...  ")
+        with open(os.path.join(json_folder, json_file), 'r') as file:
+            current_file = json.load(file)
+        json_projects_id= list(current_file["projects"])[0]
+        print("gelesene ID aus json: \n", list(current_file["projects"])[0])
+        if ("labels" in current_file["projects"][json_projects_id] and len(current_file["projects"][json_projects_id]["labels"]) > 0 ):
+            create_yolo_labels(json_file,json_projects_id)
+        else:
+            print(f"No labels in project {json_projects_id} in: \n {json_file} \n")
