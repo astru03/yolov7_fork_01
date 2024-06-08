@@ -1,3 +1,4 @@
+# Erstelle eine neue leere txt-Datein für die Frames, bei denen kein Objekt erkannt wurde.
 import os
 
 def create_missing_files(parent_folder, start_num, end_num):

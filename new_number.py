@@ -1,3 +1,6 @@
+#Nummeriert die txt-Datein neun, wenn es sich bei der Labelbox-Annotation um mehrere Stücke handelt in denen immer 4000 Frames vorhanden sind.
+# Dieses Skript gilt dann für die Ordner "combined_001_4000", "combined_002_4000", "combined_003_3107 usw. 
+# Vorsicht! Bei der letzten Datein mit 003 Darauf achten, dass es nicht immer bis Frame 4000 geht
 import os
 
 def rename_files(folder_path, start_num):
@@ -24,5 +27,5 @@ def rename_files(folder_path, start_num):
 
 # Beispielaufruf
 folder_path = "C:/Users/Andreas/Desktop/Geoinformatik/SEMESTER_6/01_Studienprojekt/annotations/json_test/2023-09-28_12-16-27.479006981_combined_003_3107.mp4"
-start_num = 12001 # Diese nummer jedes mal anpassen und schauen bei welchem Frame das nächste Stück beginnen soll
+start_num = 12001 # Diese nummer jedes mal anpassen und schauen bei welchem Frame das nächste Stück beginnen soll. Bei "combined_001_4000" startet die nummerierung bei 4001, bei "combined_002_4000" startet die Nummerierung bei 8001 und bei "combined_003_3107" startet die Nummerierung bei 12001
 rename_files(folder_path, start_num)
