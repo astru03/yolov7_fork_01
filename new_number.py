@@ -24,5 +24,5 @@ def rename_files(folder_path, start_num):
 
 # Beispielaufruf
 folder_path = "C:/Users/Andreas/Desktop/Geoinformatik/SEMESTER_6/01_Studienprojekt/annotations/json_test/2023-09-28_12-16-27.479006981_combined_003_3107.mp4"
-start_num = 12001
+start_num = 12001 # Diese nummer jedes mal anpassen und schauen bei welchem Frame das nächste Stück beginnen soll
 rename_files(folder_path, start_num)
