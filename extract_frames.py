@@ -29,7 +29,7 @@ for video_file in os.listdir(video_folder):
             os.makedirs(output_dir)
 
         # Muster für die Ausgabe-Dateien
-        output_pattern = os.path.join(output_dir, f"{base_name}_%04d.png")
+        output_pattern = os.path.join(output_dir, f"{base_name}_%05d.png")
 
         # Erstelle das FFmpeg-Kommando
         ff = FFmpeg(
