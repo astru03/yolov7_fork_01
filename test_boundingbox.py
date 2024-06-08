@@ -3,6 +3,7 @@ import cv2
 
 # Pfad zur JSON-Datei
 json_path = "C:/Users/Andreas/Desktop/Geoinformatik/SEMESTER_6/01_Studienprojekt/annotations/json_test/2023-09-28_12-16-27.479006981_combined_001_4000.mp4.json"
+# Hier nicht auf das video aus der json datei, sondern auf das orginal video von dvs beziehen. Den darauf soll die normierung statt finden!
 
 # JSON-Datei laden
 with open(json_path, 'r') as file:
@@ -14,7 +15,7 @@ bbox_data = data['projects']['clor41l0i03gi07znfo8051e3']['labels'][0]['annotati
 media_attributes = data['media_attributes']
 
 # Frame Dimensionen
-frame_height = media_attributes['height']
+frame_height = media_attributes['height'] # Hier die Höhe des orginal dvs nehmen: 720 px
 frame_width = media_attributes['width']
 
 # URL zum Video aus der JSON-Datei extrahieren

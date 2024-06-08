@@ -21,7 +21,7 @@ def create_yolo_labels(json_file,projects_id):
         data = json.load(file)
 
     # Extrahiere Metadaten
-    height = data['media_attributes']['height']
+    height = data['media_attributes']['height']  # Orginal Höhe von dvs ist 720 px
     width = data['media_attributes']['width']
     # Extrahiere den Basename der JSON-Datei (ohne Pfad und Erweiterung)
     base_filename = os.path.splitext(json_file)[0]
