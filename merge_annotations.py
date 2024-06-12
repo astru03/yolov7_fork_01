@@ -4,25 +4,13 @@ import re
 
 
 # Pfad zum Ordner mit den JSON-Dateien
-json_folder = r"D:\ML_INSec\data_test\annotations\output_tojson\chunkwise\2023-09-28_12-16-27.479006981"
+#json_folder = r"D:\ML_INSec\data_test\annotations\output_tojson\chunkwise\2023-09-28_12-16-27.479006981"
+json_folder= r"d:\ML_INSec\data_test\annotations\test2\2023-09-28_12-16-27.479006981"
 
-# merge
-def merge_anno(json_file):
-    with open(os.path.join(json_folder, json_file), 'r') as file:
-        data = json.load(file)
-        parts = json_file.split("combined_")
-        
-        chunk_id = parts[1].split("_")[0]
-        chunk_id = int(chunk_id)
-        
-        print(f"{json_file} has chunk_id  {chunk_id}")
-        
-            
-            
 # list of jsons
 json_list = os.listdir(json_folder)
-# opens first json 
 
+# opens first json 
 with open(os.path.join(json_folder, json_list[0]), 'r') as file:
             json_data = json.load(file)
 # get external id 
@@ -41,9 +29,10 @@ try:
 except OSError as e:
     print(f"Fehler beim Erstellen des Ordners '{json_folder+"/allchunks"}': {e}")
     
-#write new json file for merged id
+#write new json file for merged id located in subfolder allchunks
 with open(json_folder+"/allchunks"+f"/allchunks_{external_id_without_chunk}.json", "w") as outfile:
-  outfile.write("{}")
+ json.dump({"frames":[]}, outfile)
+outfile.close()
   
   
 # Schleife über alle JSON-Dateien im Ordner
@@ -51,9 +40,56 @@ current_frame_count = 0
 for json_file in json_list:
     if json_file.endswith(".json"):
         with open(os.path.join(json_folder, json_file), 'r') as file:
+            # chunk id of current json file
+            parts = json_file.split("combined_")
+            chunk_id = parts[1].split("_")[0]
+            chunk_id = int(chunk_id)
+            # cuurent json file
             current_file = json.load(file)
-        #print(f"jsonfile in loop: {json_file}\n")
-            
+            # projects id 
+            projects_id = list(current_file["projects"])[0]
+            # check if json has labels
+            if ("labels" in current_file["projects"][projects_id] and len(current_file["projects"][projects_id]["labels"]) > 0 ):
+                frames = current_file["projects"][projects_id]["labels"][0]["annotations"]["frames"]
+               
+                #print(f"frame content: {frames}")
+                # old frame ids (string)
+                frame_ids = list(frames)
+                # old frame ids (int)
+                ids_int_list = [int(x) for x in frame_ids]
+                #print(f"Chunk number {chunk_id}: \n ")
+                #print(frame_ids, "\n")
+                #print(ids_int_list)
+                #print (f"Difference is: {current_frame_count} \n")
+                # new frame ids (int)
+                ids_int_list_new = [x + current_frame_count for x in ids_int_list] 
+                # new frame ids (string)
+                frame_ids_new = [str(x) for x in ids_int_list_new]
+                #print (frame_ids_new, "\n")
+                for (old,new) in zip(frame_ids,frame_ids_new):
+                    
+                        #new_frame ="{'frame_ids_new':{frames[]}}"
+                        old_value = frames[old]
+                        frames.pop(old)
+                        frames[new] = old_value
+                        
+                        #print(frames)
+                        #print((old,new,current_frame_count))
+                with open(json_folder+"/allchunks"+f"/allchunks_{external_id_without_chunk}.json", "r+") as outfile:
+                    final_json= json.load(outfile)
+                    
+                    final_json["frames"].append(frames)
+                    
+                outfile.close()
+                
+                with open(json_folder+"/allchunks"+f"/allchunks_{external_id_without_chunk}.json", "w") as outfile:
+                    json.dump(final_json,outfile, indent="")
+                    
+                outfile.close()
+                
+                    
             current_frame_count = current_frame_count + current_file["media_attributes"]["frame_count"]
-            print(f"current frame count is : {current_frame_count}")
-        merge_anno(json_file)
+                
+            
+            #print(f"current frame count is : {current_frame_count}")
+        
