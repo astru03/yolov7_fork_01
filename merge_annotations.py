@@ -5,7 +5,7 @@ import re
 
 # Pfad zum Ordner mit den JSON-Dateien
 #json_folder = r"D:\ML_INSec\data_test\annotations\output_tojson\chunkwise\2023-09-28_12-16-27.479006981"
-json_folder= r"d:\ML_INSec\data_test\annotations\test2\2023-09-28_12-16-27.479006981"
+json_folder= r"C:\Users\Andreas\Desktop\Geoinformatik\SEMESTER_6\01_Studienprojekt\annotations\Export_v2_project_ictrap_beamsplitter_4_19_2024\2023-09-28_12-16-27.479006981"
 
 # list of jsons
 json_list = os.listdir(json_folder)
@@ -22,12 +22,21 @@ if not external_id:
 pattern = r"(.*?)_combined"
 external_id_without_chunk=re.search(pattern, external_id).group(1)
 
+# Ordner 'allchunks' erstellen, falls er nicht existiert
 try:
-    if not os.path.exists(json_folder+"/allchunks"):
-        os.mkdir(json_folder+"/allchunks")
-        print(f"Ordner '{json_folder+"/allchunks"}' erfolgreich erstellt!")
+    allchunks_folder = os.path.join(json_folder, "allchunks")
+    if not os.path.exists(allchunks_folder):
+        os.mkdir(allchunks_folder)
+        print(f"Ordner '{allchunks_folder}' erfolgreich erstellt!")
 except OSError as e:
-    print(f"Fehler beim Erstellen des Ordners '{json_folder+"/allchunks"}': {e}")
+    print(f"Fehler beim Erstellen des Ordners '{allchunks_folder}': {e}")
+    
+# try:
+#    if not os.path.exists(json_folder+"/allchunks"):
+#        os.mkdir(json_folder+"/allchunks")
+#        print(f"Ordner '{json_folder+"/allchunks"}' erfolgreich erstellt!")
+#except OSError as e:
+#    print(f"Fehler beim Erstellen des Ordners '{json_folder+"/allchunks"}': {e}")
     
 #write new json file for merged id located in subfolder allchunks
 with open(json_folder+"/allchunks"+f"/allchunks_{external_id_without_chunk}.json", "w") as outfile:
