@@ -1,34 +1,27 @@
-# Erstelle eine neue leere txt-Datein für die Frames, bei denen kein Objekt erkannt wurde.
 import os
 
-def create_missing_files(parent_folder, start_num, end_num):
-    # Überprüfe, ob der übergeordnete Ordnerpfad existiert
-    if not os.path.exists(parent_folder):
-        print(f"Der Ordner '{parent_folder}' existiert nicht.")
+def create_missing_files(folder, start_num, end_num):
+    # Überprüfe, ob der Ordner existiert
+    if not os.path.exists(folder):
+        print(f"Der Ordner '{folder}' existiert nicht.")
         return
 
-    # Iteriere über alle Unterordner im übergeordneten Ordner
-    for subfolder in os.listdir(parent_folder):
-        subfolder_path = os.path.join(parent_folder, subfolder)
+    # Erstelle eine Liste mit allen vorhandenen Dateinamen im Ordner
+    existing_files = os.listdir(folder)
 
-        # Überprüfe, ob der aktuelle Eintrag ein Ordner ist
-        if os.path.isdir(subfolder_path):
-            # Erstelle eine Liste mit allen vorhandenen Dateinamen im Unterordner
-            existing_files = os.listdir(subfolder_path)
+    # Iteriere über den gewünschten Zahlenbereich
+    for i in range(start_num, end_num + 1):
+        # Formatiere die Dateinamen mit führenden Nullen
+        filename = f"video_{str(i).zfill(5)}.txt"
 
-            # Iteriere über den gewünschten Zahlenbereich
-            for i in range(start_num, end_num + 1):
-                # Formatiere die Dateinamen mit führenden Nullen
-                filename = f"video_{str(i).zfill(5)}.txt"
-
-                # Überprüfe, ob die Datei bereits existiert
-                if filename not in existing_files:
-                    # Erstelle eine neue leere Datei im angegebenen Unterordner
-                    file_path = os.path.join(subfolder_path, filename)
-                    with open(file_path, "w"):
-                        pass
-                    print(f"Datei '{filename}' wurde in '{subfolder}' erstellt.")
+        # Überprüfe, ob die Datei bereits existiert
+        if filename not in existing_files:
+            # Erstelle eine neue leere Datei im angegebenen Ordner
+            file_path = os.path.join(folder, filename)
+            with open(file_path, "w"):
+                pass
+            print(f"Datei '{filename}' wurde im Ordner '{folder}' erstellt.")
 
 # Beispielaufruf
-parent_folder = "C:/Users/Andreas/Desktop/Geoinformatik/SEMESTER_6/01_Studienprojekt/annotations/json_test"
-create_missing_files(parent_folder, 1, 4000)
+folder = r"C:\Users\Andreas\Desktop\Geoinformatik\SEMESTER_6\01_Studienprojekt\annotations\Export_v2_project_ictrap_beamsplitter_4_19_2024\2023-09-28_12-16-27.479006981\allchunks\2023-09-28_12-16-27.479006981"
+create_missing_files(folder, 1, 15107)
