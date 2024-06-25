@@ -49,22 +49,26 @@ def create_yolo_labels(json_file_path):
             else:
                 prefix = "video_"
 
-            # Definiere den vollständigen Pfad zur neuen Textdatei
-            output_file = os.path.join(output_folder, f'{prefix}{frame_num_str}.txt')
+            # Initialisiere den Objektzähler
+            obj_counter = 0
+            yolo_lines = []
 
-            # Öffne eine neue Textdatei für jeden Frame
-            with open(output_file, 'w') as file:
-                # Initialisiere den Objektzähler
-                obj_counter = 0
-                for obj_id, obj_data in frame_data["objects"].items():
+            for obj_id, obj_data in frame_data["objects"].items():
+                # Abfrage ob "name":"insect" und "value":"insect"
+                if obj_data.get("name") == "insect" and obj_data.get("value") == "insect":
                     bbox = obj_data['bounding_box']
-
                     # Konvertiere die Bounding-Box-Koordinaten ins YOLO-Format
                     x_center, y_center, bbox_width, bbox_height = convert_coordinates(width, height, bbox)
-                    # Schreibe die Zeile in die YOLO-Datei
-                    file.write(f"{obj_counter} {x_center} {y_center} {bbox_width} {bbox_height}\n")
+                    # Füge die Zeile zur Liste hinzu
+                    yolo_lines.append(f"{obj_counter} {x_center} {y_center} {bbox_width} {bbox_height}")
                     # Inkrementiere den Objektzähler
                     obj_counter += 1
+
+            # Schreibe nur dann eine Datei, wenn es mindestens eine gültige Objektzeile gibt.
+            if yolo_lines:
+                output_file = os.path.join(output_folder, f'{prefix}{frame_num_str}.txt')
+                with open(output_file, 'w') as file:
+                    file.write("\n".join(yolo_lines))
 
 # Erstelle YOLO-Labels für die gegebene JSON-Datei
 create_yolo_labels(json_file_path)
