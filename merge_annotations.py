@@ -5,7 +5,7 @@ import re
 
 # Pfad zum Ordner mit den JSON-Dateien
 #json_folder = r"D:\ML_INSec\data_test\annotations\output_tojson\chunkwise\2023-09-28_12-16-27.479006981"
-json_folder= r"C:\Users\Andreas\Desktop\Geoinformatik\SEMESTER_6\01_Studienprojekt\annotations\Export_v2_project_ictrap_beamsplitter_4_19_2024\2023-09-28_12-16-27.479006981"
+json_folder= r"D:\ML_INSec\data_test\annotations\output_tojson\chunkwise\2023-10-01_14-05-35.643162290"
 
 # list of jsons
 json_list = os.listdir(json_folder)
