@@ -27,12 +27,22 @@ module load palma/2021a Miniconda3/4.9.2
 CONDA_BASE=$(conda info --base)
 source $CONDA_BASE/etc/profile.d/conda.sh
 conda deactivate
-conda activate /home/k/kwundram/envs/yolov7
+conda activate /home/k/kwundram/envs/insects_env
 
-yh=/home/s/s_thie36/Projects/yolov7
-tb=/scratch/tmp/s_thie36/cameratrap/training_yolo
+# place of fork in palma
+yh=/home/k/kwundram/ml_insects/yolov7_fork_01
+# folder with project folders containing pngs and txts
+tb=/scratch/tmp/kwundram/insects
 
-python "$yh"/train_aux.py --workers 8 --device 0 --batch-size 8 --data "$tb"/fs_iteration.yaml --cfg "$yh"/cfg/training/yolov7-e6e-hfsp.yaml --weights "$tb"/pretrained_models/yolov7-e6e_training.pt --hyp "$yh"/data/hyp.scratch.p6-custom.yaml --single-cls --epochs 100 --img 1280 1280 --name yolov7e6e-si-multigray  --project "$tb"/runs
+data="$yh"/data/insects_pr.yaml
+hyp="$yh"/data/hyp.scratch.p5_insects.yaml
+weights=/scratch/tmp/kwundram/pt_weights/yolov7x.pt
+cfg="$yh"/cfg/training/yolov7.yaml
+
+# weights on github
+#
+
+python "$yh"/train.py --workers 8 --device 0 --batch-size 8 --data "$data" --cfg "$cfg"  --weights "$weights" --hyp "$hyp" --single-cls --epochs 100 --img 1280 1280 --name yolov7_insects1  --project "$tb"/runs
 
 conda deactivate
 module purge
