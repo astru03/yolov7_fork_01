@@ -33,16 +33,17 @@ conda activate /home/k/kwundram/envs/insects_env
 yh=/home/k/kwundram/ml_insects/yolov7_fork_01
 # folder with project folders containing pngs and txts
 tb=/scratch/tmp/kwundram/insects
-
 data="$yh"/data/insects_pr.yaml
 hyp="$yh"/data/hyp.scratch.p5_insects.yaml
+#yolov7x weights
 weights=/scratch/tmp/kwundram/pt_weights/yolov7x.pt
-cfg="$yh"/cfg/training/yolov7.yaml
+# yolov7x yaml
+cfg="$yh"/cfg/training/yolov7x.yaml
 
 # weights on github
 #
 
-python "$yh"/train.py --workers 8 --device 0 --batch-size 8 --data "$data" --cfg "$cfg"  --weights "$weights" --hyp "$hyp" --single-cls --epochs 100 --img 1280 1280 --name yolov7_insects1  --project "$tb"/runs
+python "$yh"/train.py --workers 2 --device 0 --batch-size 2 --data "$data" --cfg "$cfg"  --weights "$weights" --hyp "$hyp" --single-cls --epochs 100 --img 1280 1280 --name yolov7_insects1  --project "$tb"/runs
 
 conda deactivate
 module purge
