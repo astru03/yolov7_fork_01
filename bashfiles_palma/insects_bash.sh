@@ -6,15 +6,17 @@
 
 #SBATCH --partition=gpua100
 
-#SBATCH --mem=48GB
+#SBATCH --mem=32GB
 
 #SBATCH --gres=gpu:1
 
 #SBATCH --time=7-00:00:00
 
+#SBATCH --error=/scratch/tmp/kwundram/errors/insects
+
 #SBATCH --job-name=insects_job
 
-#SBATCH --output=/scratch/tmp/s_thie36/cameratrap/training_yolo/slurm_out/slurm-%j.out
+#SBATCH --output=/scratch/tmp/kwundram/output/insects
 
 #SBATCH --mail-type=ALL
 

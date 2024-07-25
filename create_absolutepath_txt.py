@@ -17,6 +17,7 @@ def list_png_paths(folder_path, output_file_path):
   with open( output_file_path, "a") as f:
     # Write each path to the file, followed by a newline
     f.write("\n".join(png_paths))
+    f.write("\n")
     
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='')
