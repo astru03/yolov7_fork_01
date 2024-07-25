@@ -45,7 +45,7 @@ cfg="$yh"/cfg/training/yolov7x.yaml
 # weights on github
 #
 
-python "$yh"/train.py --workers 2 --device 0 --batch-size 2 --data "$data" --cfg "$cfg"  --weights "$weights" --hyp "$hyp" --single-cls --epochs 100 --img 1280 1280 --name yolov7_insects1  --project "$tb"/runs
+python "$yh"/train.py --workers 4 --device 0 --batch-size 6 --data "$data" --cfg "$cfg"  --weights "$weights" --hyp "$hyp" --single-cls --epochs 100 --img 1280 1280 --name yolov7_insects1  --project "$tb"/runs
 
 conda deactivate
 module purge
