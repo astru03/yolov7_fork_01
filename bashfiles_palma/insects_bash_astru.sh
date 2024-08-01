@@ -35,17 +35,17 @@ conda activate /home/a/a_stru03/envs/astru
 yh=/home/a/a_stru03/ml_insects/yolov7_fork_01
 # folder with project folders containing pngs and txts
 tb=/scratch/tmp/a_stru03/insects
-data="$yh"/data/insects_pr.yaml
+data="$yh"/data/insects_pr_astru.yaml
 hyp="$yh"/data/hyp.scratch.p5_insects.yaml
 #yolov7x weights
 weights=/scratch/tmp/a_stru03/pt_weights/yolov7x.pt
 # yolov7x yaml
 cfg="$yh"/cfg/training/yolov7x.yaml
-
+name="yolov7_modell"
 # weights on github
 #
 
-python "$yh"/train.py --workers 4 --device 0 --batch-size 6 --data "$data" --cfg "$cfg"  --weights "$weights" --hyp "$hyp" --single-cls --epochs 100 --img 1280 1280 --name yolov7_insects1  --project "$tb"/runs
+python "$yh"/train.py --workers 4 --device 0 --batch-size 6 --data "$data" --cfg "$cfg"  --weights "$weights" --hyp "$hyp" --single-cls --epochs 100 --img 1280 1280 --name "$name" --project "$tb"/runs
 
 conda deactivate
 module purge
