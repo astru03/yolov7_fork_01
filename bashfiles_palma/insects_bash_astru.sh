@@ -41,7 +41,7 @@ hyp="$yh"/data/hyp.scratch.p5_insects.yaml
 weights=/scratch/tmp/a_stru03/pt_weights/yolov7x.pt
 # yolov7x yaml
 cfg="$yh"/cfg/training/yolov7x.yaml
-name="yolov7_modell"
+name="yolov7_model_astru_01"
 # weights on github
 #
 

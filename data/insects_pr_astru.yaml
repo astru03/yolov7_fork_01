@@ -6,7 +6,7 @@
 # train and val data as 1) directory: path/images/, 2) file: path/images.txt, or 3) list: [path1/images/, path2/images/]
 train: /scratch/tmp/a_stru03/insects/insects_train.txt # 118287 images
 val: /scratch/tmp/a_stru03/insects/insects_val.txt  # 5000 images
-test: /scratch/tmp/a_stru03/insects/insects_val.txt  # 20288 of 40670 images
+test: /scratch/tmp/a_stru03/insects/insects_val.txt  # 20288 of 40670 images (Hier dann all-path von den zwei videos. Dann text.py ausführen)
 #
 # 80/20  no test .
 # train only on pngs with insect
