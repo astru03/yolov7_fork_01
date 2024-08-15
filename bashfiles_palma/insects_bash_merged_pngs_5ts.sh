@@ -6,15 +6,15 @@
 
 #SBATCH --partition=gpua100
 
-#SBATCH --mem=32GB
+#SBATCH --mem=20GB
 
 #SBATCH --gres=gpu:1
 
 #SBATCH --time=7-00:00:00
 
-#SBATCH --job-name=insects_job
+#SBATCH --job-name=insects_job_merged_5ts_1
 
-#SBATCH --output=/scratch/tmp/kwundram/output/insects
+#SBATCH --output=/scratch/tmp/kwundram/output/insects_merged_5ts_1
 
 #SBATCH --mail-type=ALL
 
@@ -32,19 +32,21 @@ conda activate /home/k/kwundram/envs/insects_env
 # place of fork in palma
 yh=/home/k/kwundram/ml_insects/yolov7_fork_01
 # folder with project folders containing pngs and txts
-tb=/scratch/tmp/kwundram/insects
-data="$yh"/data/insects_pr.yaml
+tb=/scratch/tmp/kwundram/merged_pngs_5ts
+# data yaml contains absolute paths and needs to be changed
+data="$yh"/data/insects_pr_merged_5ts.yaml
+# hyp stays same 
 hyp="$yh"/data/hyp.scratch.p5_insects.yaml
 #yolov7x weights
 weights=/scratch/tmp/kwundram/pt_weights/yolov7x.pt
-# yolov7x yaml
+# yolov7x yaml stays same
 cfg="$yh"/cfg/training/yolov7x.yaml
-name="yolo_ins_2"
+name="yolo_ins_merged_5ts"
 
 # weights on github
 #
 
-python "$yh"/train.py --workers 4 --device 0 --batch-size 6 --data "$data" --cfg "$cfg"  --weights "$weights" --hyp "$hyp" --single-cls --epochs 100 --img 1280 1280 --name "$name"  --project "$tb"/runs
+python "$yh"/train.py --workers 4 --device 0 --batch-size 6 --data "$data" --cfg "$cfg"  --weights "$weights" --hyp "$hyp" --single-cls --epochs 80 --img 1280 1280 --name "$name"  --project "$tb"/runs
 
 conda deactivate
 module purge
