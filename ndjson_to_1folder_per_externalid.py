@@ -22,7 +22,7 @@ def ndjson_to_json(ndjson_file_path, output_directory):
             if not external_id:
                 print(f"Zeile {line_number} enthält kein 'external_id' Feld.")
                 continue
-            # putting chunks of same video in one folder
+            # Einzelteile (chunks) der selben Videos werden in ein Ordner gelegt
             pattern = r"(.*?)_combined"
             external_id_without_chunk=re.search(pattern, external_id).group(1)
             # Ordner erstellen
@@ -49,4 +49,5 @@ if __name__ == "__main__":
 
     args = parser.parse_args()
     
+    # Funktionsaufruf
     ndjson_to_json(args.ndjson_file_path, args.output_directory)
