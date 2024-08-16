@@ -2,39 +2,39 @@ import os
 from ffmpy import FFmpeg
 
 # Pfad zum Ordner mit den Videodateien
-video_folder = "F:/GEOINFORMATIK/SEMESTER_6/Studienprojekt/16mm_dvs-30_basler-70_dvs_0/16mm_dvs-30_basler-70_dvs_0/2023-09-28-botanical_garden"
+video_folder = "G:/GEOINFORMATIK/SEMESTER_6/01_Studienprojekt/12mm_dvs-30_basler-70_dvs/12mm_dvs-30_basler-70_dvs"
 
 # Ausgabe-Verzeichnis
-output_base_dir = "F:/GEOINFORMATIK/SEMESTER_6/Studienprojekt/output_frames"
+output_base_dir = "G:/GEOINFORMATIK/SEMESTER_6/01_Studienprojekt/12mm_dvs-30_basler-70_dvs/output_frames"
 
-# Erstelle das Ausgabe-Verzeichnis, falls es nicht existiert
+# Erstellt das Ausgabe-Verzeichnis, falls es nicht existiert
 if not os.path.exists(output_base_dir):
     os.makedirs(output_base_dir)
 
 # Schleife über alle Videodateien im angegebenen Ordner
 for video_file in os.listdir(video_folder):
-    if video_file.endswith(".mp4"):  # Nur .mp4-Dateien verarbeiten
+    if video_file.endswith(".mp4"):  # Nur .mp4-Dateien werden verarbeitet
         video_file_path = os.path.join(video_folder, video_file)
         
-        # Extrahiere den Basename der Videodatei (ohne Pfad und Erweiterung)
+        # Extrahiert den Base_name der Videodatei (ohne Pfad und Erweiterung)
         base_name = os.path.splitext(video_file)[0]
         
-        # Entferne das Suffix '_dvs' vom Basename
+        # Entfernt das Suffix '_dvs' vom Base_name
         if base_name.endswith("_dvs"):
             base_name = base_name[:-4]
         
-        # Erstelle einen spezifischen Ordner für die Frames dieser Videodatei
+        # Erstellt einen spezifischen Ordner für die Frames dieser Videodatei
         output_dir = os.path.join(output_base_dir, base_name)
         if not os.path.exists(output_dir):
             os.makedirs(output_dir)
 
         # Muster für die Ausgabe-Dateien
-        output_pattern = os.path.join(output_dir, f"{base_name}_%05d.png")
+        output_pattern = os.path.join(output_dir, "video_%05d.png")
 
-        # Erstelle das FFmpeg-Kommando
+        # Erstellt das FFmpeg-Kommando
         ff = FFmpeg(
             inputs={video_file_path: None},
-            outputs={output_pattern: '-vf "fps=1"'}  # Extrahiere Frames mit der angegebenen Framerate
+            outputs={output_pattern: '-vf "fps=100"'}  # Extrahiert Frames mit der angegebenen Framerate
         )
 
         # Führe das Kommando aus
