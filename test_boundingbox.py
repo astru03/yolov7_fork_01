@@ -2,7 +2,8 @@ import json
 import cv2
 
 # Pfad zur JSON-Datei
-json_path = "C:/Users/Andreas/Desktop/Geoinformatik/SEMESTER_6/01_Studienprojekt/annotations/json_test/2023-09-28_12-16-27.479006981_combined_001_4000.mp4.json"
+#json_path = "C:/Users/Andreas/Desktop/Geoinformatik/SEMESTER_6/01_Studienprojekt/annotations/json_test/2023-09-28_12-16-27.479006981_combined_001_4000.mp4.json"
+json_path = "C:/Users/Andreas/Desktop/Geoinformatik/SEMESTER_6/01_Studienprojekt/annotations/Export_v2_project_ictrap_beamsplitter_8_12_2024/2023-10-15_13-28-13.077287350/2023-10-15_13-28-13.077287350_combined_001_3000.mp4.json"
 # Hier nicht auf das video aus der json datei, sondern auf das skalierte dvs beziehen. Den darauf soll die normierung statt finden!
 
 # JSON-Datei laden
@@ -10,7 +11,7 @@ with open(json_path, 'r') as file:
     data = json.load(file)
 
 # Extrahieren der benötigten Werte
-frame_number = "236"
+frame_number = "237"
 bbox_data = data['projects']['clor41l0i03gi07znfo8051e3']['labels'][0]['annotations']['frames'][frame_number]['objects']
 media_attributes = data['media_attributes']
 
@@ -95,7 +96,7 @@ def draw_bounding_boxes_and_centers(bbox_data, frame):
 draw_bounding_boxes_and_centers(bbox_data, frame)
 
 # Ergebnisbild speichern
-result_image_path = "C:/Users/Andreas/Desktop/result_image_1.png"  # Absoluter Pfad zum Speicherort und Dateinamen
+result_image_path = "C:/Users/Andreas/Desktop/result_image_2.png"  # Absoluter Pfad zum Speicherort und Dateinamen
 cv2.imwrite(result_image_path, frame)
 print(f"Das Ergebnisbild wurde als {result_image_path} gespeichert.")
 
