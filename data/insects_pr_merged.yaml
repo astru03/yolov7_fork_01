@@ -5,8 +5,13 @@
 
 # train and val data as 1) directory: path/images/, 2) file: path/images.txt, or 3) list: [path1/images/, path2/images/]
 train: /scratch/tmp/kwundram/merged_pngs1/merged_pngs/insects_train.txt # 118287 images
-val: /scratch/tmp/kwundram/merged_pngs1/merged_pngs/insects_val.txt  # 5000 images
-test: /scratch/tmp/kwundram/merged_pngs1/merged_pngs/insects_val.txt  # 20288 of 40670 images
+val: /scratch/tmp/kwundram/merged_pngs1/merged_pngs/insects_val.txt
+# test with val
+test: /scratch/tmp/kwundram/merged_pngs1/merged_pngs/insects_val.txt  # 5000 images
+# test with test data
+#test: /scratch/tmp/kwundram/test_daten/insects_test_data/test_daten/all_paths_test.txt # 20288 of 40670 images
+
+
 #
 # 80/20  no test .
 # train only on pngs with insect

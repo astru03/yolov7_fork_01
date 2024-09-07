@@ -38,18 +38,18 @@ data=/home/k/kwundram/ml_insects/yolov7_fork_01/data/insects_pr_merged.yaml
 
 
 # project ; change
-project=/scratch/tmp/kwundram/test_results/merged_test
+project=/scratch/tmp/kwundram/test_results/5ts
 #1
-name="test_merged_with_val1"
-tested_model=/scratch/tmp/kwundram/merged_pngs1/merged_pngs/runs/yolo_ins_merged_1/results_export/best.pt
+name="test_merged5ts_withval_1"
+tested_model=/scratch/tmp/kwundram/merged_pngs_5ts/runs/yolo_ins_merged_5ts/results_export/best.pt
 python "$yh"/test.py --data "$data" --task test --verbose --save-txt --single-cls --img 1280  --batch 6 --conf 0.001 --iou 0.65 --device 0 --weights "$tested_model"  --project "$project" --name "$name"
 
 #2
-name="test_merged_with_val2"
-tested_model=/scratch/tmp/kwundram/merged_pngs1/merged_pngs/runs/yolo_ins_merged_2/results_export/best.pt
+name="test_merged5ts_withval_2"
+tested_model=/scratch/tmp/kwundram/merged_pngs_5ts/runs/yolo_ins_merged_5ts_2/results_export/best.pt
 python "$yh"/test.py --data "$data" --task test --verbose --save-txt --single-cls --img 1280  --batch 6 --conf 0.001 --iou 0.65 --device 0 --weights "$tested_model"  --project "$project" --name "$name"
 
 #3
-name="test_merged_with_val3"
-tested_model=/scratch/tmp/kwundram/merged_pngs1/merged_pngs/runs/yolo_ins_merged_3/results_export/best.pt
+name="test_merged5ts_withval_3"
+tested_model=/scratch/tmp/kwundram/merged_pngs_5ts/runs/yolo_ins_merged_5ts_3/results_export/best.pt
 python "$yh"/test.py --data "$data" --task test --verbose --save-txt --single-cls --img 1280  --batch 6 --conf 0.001 --iou 0.65 --device 0 --weights "$tested_model"  --project "$project" --name "$name"
