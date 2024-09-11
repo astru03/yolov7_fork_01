@@ -3,7 +3,7 @@ import os
 import re
 
 # Pfad zur JSON-Datei
-#json_file_path = r"C:\Users\Andreas\Desktop\Geoinformatik\SEMESTER_6\01_Studienprojekt\annotations\Export_v2_project_ictrap_beamsplitter_4_19_2024\2023-09-28_12-16-27.479006981\allchunks\allchunks_2023-09-28_12-16-27.479006981.json"
+json_file_path = r"D:\ML_INSec\test_daten\allchunks_2023-10-15_13-28-13.077287350.json"
 
 # Funktion zur Konvertierung der Koordinaten in das YOLO-Format
 def convert_coordinates(width, height, bbox):
@@ -21,8 +21,8 @@ def create_yolo_labels(json_file_path):
         data = json.load(file)
 
     # Extrahierte Metadaten. Format des DVS-Video
-    height = float(1080)
-    width = float(1920)
+    height = float(720)
+    width = float(1280)
 
     # Extrahiert den Base_name der JSON-Datei (ohne Pfad und Erweiterung)
     base_filename = os.path.splitext(os.path.basename(json_file_path))[0]
@@ -30,7 +30,7 @@ def create_yolo_labels(json_file_path):
     print("base_filename:\n", base_filename)
 
     # Erstellt einen Ordner für die Frames dieser JSON-Datei
-    output_folder = os.path.join(os.path.dirname(json_file_path), base_filename)
+    output_folder = os.path.join(os.path.dirname(json_file_path),"txt", base_filename)
     os.makedirs(output_folder, exist_ok=True)
 
     # Iteriert über die Frames und erstellt für jeden Frame eine Textdatei
